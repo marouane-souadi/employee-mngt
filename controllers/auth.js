@@ -26,6 +26,39 @@ const register = async (req, res, next) => {
     }
 }
 
+const login = async (req, res, next) => {
+    try {
+        const employee = await Employee.findOne({username: req.body.username})
+        const {id, username, firstname, email, lastname} = employee
+        const isMatch = await employee.comparePassword(req.body.password)
+        if (isMatch) {
+            const token = jwt.sign({
+                id,
+                username,
+            }, config.SECRET_KEY)
+            res.status(200).json({
+                id,
+                username,
+                email,
+                firstname,
+                lastname,
+                token
+            })
+        } else {
+            return next({
+                status : 400,
+                message : 'Invalid Email/Password'
+            })
+        }
+    } catch (err) {
+        return next({
+            status : 400,
+            message : 'Invalid Email/Password error'
+        })
+    }
+}
+
 module.exports = {
     register,
+    login,
 }

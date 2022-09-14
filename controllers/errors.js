@@ -6,11 +6,11 @@ const notFound = (req, res, next) => {
     next(err)
 }
 
-const error = (err, req, res) => {
+const error = (err, req, res, next) => {
     if (err instanceof expressValidation.ValidationError) {
-        res.status(err.statusCode).json(err);
+        return res.status(err.statusCode).json(err);
     } else {
-        res.status(err.status || 500)
+        return res.status(err.status || 500)
             .json({
                 message: err.message || 'Oops, something went wrong'
             });
