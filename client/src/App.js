@@ -8,6 +8,7 @@ import NavBar from "./components/Navbar";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
+import AddEmployee from "./pages/AddEmployee";
 
 function App() {
     const auth = useAuth()
@@ -30,6 +31,7 @@ function App() {
                         <Routes>
                             <Route path="/register" element={<RequireGuest><Register/></RequireGuest>}/>
                             <Route path="/login" element={<RequireGuest><Login/></RequireGuest>}/>
+                            <Route path="/employees/add" element={<RequireAuth><AddEmployee/></RequireAuth>}/>
                             <Route path="*" element={<RequireAuth><Home/></RequireAuth>}/>
                         </Routes>
                     </Router>
