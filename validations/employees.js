@@ -7,6 +7,8 @@ const add = {
         email: Joi.string().email().required(),
         firstname: Joi.string().required(),
         lastname: Joi.string(),
+        address: Joi.string(),
+        role: Joi.string(),
     })
 }
 

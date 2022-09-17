@@ -10,6 +10,8 @@ const Register =  () => {
     const [email, setEmail] = useState('')
     const [firstname, setFirstname] = useState('')
     const [lastname, setLastname] = useState('')
+    const [address, setAddress] = useState('')
+    const [role, setRole] = useState('')
     const [error, setError] = useState('')
     const [isLoading, setIsLoading] = useState(false)
 
@@ -29,7 +31,7 @@ const Register =  () => {
         setError('')
         if (firstname && email && username && password) {
             setIsLoading(true)
-            axios.post('/api/auth/register', {firstname, lastname, email, username, password})
+            axios.post('/api/auth/register', {firstname, lastname, email, username, password, address, role})
                 .then(res => {
                     auth.setCurrentUser(res.data)
                 }).catch(err => {
@@ -54,35 +56,49 @@ const Register =  () => {
                             </div>
                         )}
                         <div className="mb-3">
-                            <label htmlFor="exampleFormControlInput1" className="form-label">First name</label>
+                            <label htmlFor="firstname" className="form-label">First name</label>
                             <input type="text" className="form-control" id="firstname"
                                    onChange={e => setFirstname(e.target.value)}
                                    placeholder="first name" required
                             />
                         </div>
                         <div className="mb-3">
-                            <label htmlFor="exampleFormControlInput1" className="form-label">Last name</label>
+                            <label htmlFor="lastname" className="form-label">Last name</label>
                             <input type="text" className="form-control" id="lastname"
                                    onChange={e => setLastname(e.target.value)}
                                    placeholder="last name"
                             />
                         </div>
                         <div className="mb-3">
-                            <label htmlFor="exampleFormControlInput1" className="form-label">Email</label>
+                            <label htmlFor="email" className="form-label">Email</label>
                             <input type="email" className="form-control" id="email"
                                    onChange={e => setEmail(e.target.value)}
-                                   placeholder="username" required
+                                   placeholder="email" required
                             />
                         </div>
                         <div className="mb-3">
-                            <label htmlFor="exampleFormControlInput1" className="form-label">Username</label>
+                            <label htmlFor="address" className="form-label">Address</label>
+                            <input type="text" className="form-control" id="address"
+                                   onChange={e => setAddress(e.target.value)}
+                                   placeholder="address"
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="role" className="form-label">Role</label>
+                            <input type="text" className="form-control" id="role"
+                                   onChange={e => setRole(e.target.value)}
+                                   placeholder="role"
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="username" className="form-label">Username</label>
                             <input type="text" className="form-control" id="username"
                                    onChange={e => setUsername(e.target.value)}
                                    placeholder="username" required
                             />
                         </div>
                         <div className="mb-5">
-                            <label htmlFor="exampleFormControlInput1" className="form-label">Password</label>
+                            <label htmlFor="password" className="form-label">Password</label>
                             <input type="password" className="form-control" placeholder="********"
                                    id="password" required onChange={e => setPassword(e.target.value)}
                             />

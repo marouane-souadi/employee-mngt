@@ -9,7 +9,6 @@ const employeeSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        required: true
     },
     firstname: {
         type: String,
@@ -21,7 +20,13 @@ const employeeSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+    address: {
+        type: String
+    },
+    role: {
+        type: String
+    },
 })
 
 employeeSchema.pre('save', async function(next) {
