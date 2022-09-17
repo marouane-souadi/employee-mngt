@@ -4,6 +4,9 @@ const {parse} = require('csv-parse')
 const Employee = require("../../models/employee")
 
 const importCSV = async (req, res, next) => {
+    if (! req.file) {
+        return next(new Error('CSV file missing'))
+    }
     const csvUrl = path.join(__dirname, '../../uploads', req.file.filename)
     const list = []
     fs.createReadStream(csvUrl)
@@ -23,10 +26,16 @@ const importCSV = async (req, res, next) => {
                     address: `${item[3]}, ${item[2]}, ${item[4]}, ${item[5]}, ${item[6]}`,
                     role: `${item[7]}`,
                 }))
-                const employees = Employee.insertMany(mappedList)
-                res.json({
-                    result: employees
+                Employee.insertMany(mappedList, (err, items) => {
+                    if(err) {
+                        next(err)
+                    } else {
+                        res.json({
+                            result: items
+                        })
+                    }
                 })
+
             }
 
             fs.unlinkSync(csvUrl)

@@ -36,6 +36,7 @@ const Home = () => {
             <div className="mt-4 mb-5 d-flex align-items-center">
                 <h1>Employees List</h1>
                 <Link className="ms-5 btn btn-primary" to="/employees/add">Add an employee</Link>
+                <Link className="ms-5 btn btn-secondary" to="/employees/import-csv">Import CSV</Link>
             </div>
             {
                 isLoading ? (
