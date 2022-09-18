@@ -7,6 +7,7 @@ exports.loginRequired = (req, res, next)=>{
         jwt.verify(token, config.SECRET_KEY, (err, decoded)=>{
             if (decoded) {
                 console.log(decoded)
+                req.userId = decoded.id
                 // TODO: Add expire and check TTL
                 next()
             } else {

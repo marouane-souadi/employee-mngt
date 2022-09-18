@@ -7,7 +7,31 @@ import {Link} from "react-router-dom";
 const Home = () => {
     const [employees, setEmployees] = useState([])
     const [isLoading, setIsLoading] = useState(false)
+    const [error, setError] = useState('')
     const auth = useAuth()
+
+    const onDelete = (id) => {
+        const confirm = window.confirm('Are you sure to delete this employee')
+        if (confirm) {
+            setIsLoading(true)
+            axios.delete(`api/employees/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${auth.user.token}`
+                }
+            }).then(() => {
+                setEmployees(employees.filter(employee => employee.id !== id))
+            }).catch((err) => {
+                if (err && err.response && err.response.status === 401) {
+                    auth.setCurrentUser(null)
+                } else if (err.response) {
+                    setError(err.response.data.message)
+                } else {
+                    setError(err.message)
+                }
+            }).finally(() => setIsLoading(false))
+
+        }
+    }
 
     useEffect(() => {
         setIsLoading(true)
@@ -38,12 +62,17 @@ const Home = () => {
                 <Link className="ms-5 btn btn-primary" to="/employees/add">Add an employee</Link>
                 <Link className="ms-5 btn btn-secondary" to="/employees/import-csv">Import CSV</Link>
             </div>
+            {error && (
+                <div className="alert alert-danger" role="alert">
+                    {error}
+                </div>
+            )}
             {
                 isLoading ? (
                     <div className="spinner-border" role="status">
                         <span className="visually-hidden">Loading...</span>
                     </div>
-                ) : (employees.length === 0 ? <h3>Empty</h3> : <EmployeesList employees={employees}/>)
+                ) : (employees.length === 0 ? <h3>Empty</h3> : <EmployeesList employees={employees} onDelete={onDelete}/>)
             }
 
         </section>
