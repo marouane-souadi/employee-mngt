@@ -1,4 +1,5 @@
 import profileImage from '../images/profile.png'
+import {Link} from "react-router-dom";
 
 const EmployeeListItem = ({employee, onDelete}) => {
     return (
@@ -15,7 +16,7 @@ const EmployeeListItem = ({employee, onDelete}) => {
                                 <p className="card-text"><small className="text-muted">{employee.email}</small></p>
                             </div>
                             <div className="">
-                                <button className="d-block btn btn-success"><i className="bi bi-pencil"/></button>
+                                <Link className="d-block btn btn-success" to={`/employees/${employee.id}/edit`}><i className="bi bi-pencil"/></Link>
                                 <button className="d-block btn btn-danger mt-1" onClick={() => onDelete(employee.id)}><i className="bi bi-trash"/></button>
                             </div>
 
