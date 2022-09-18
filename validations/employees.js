@@ -12,6 +12,19 @@ const add = {
     })
 }
 
+const edit = {
+    body: Joi.object({
+        username: Joi.string().required(),
+        password: Joi.string(),
+        email: Joi.string().email(),
+        firstname: Joi.string(),
+        lastname: Joi.string(),
+        address: Joi.string(),
+        role: Joi.string(),
+    })
+}
+
 module.exports = {
     add,
+    edit,
 }
