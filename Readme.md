@@ -19,3 +19,11 @@ npm install
 node server.js
 ```
 - open the browser on ```http://localhost:8080```
+
+### With docker compose
+- Run the following commands
+```shell
+## from the root folder run
+docker-compose up
+```
+- open the browser on ```http://localhost:8080```
