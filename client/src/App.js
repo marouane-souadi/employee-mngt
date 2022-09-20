@@ -11,6 +11,7 @@ import Home from "./pages/Home";
 import AddEmployee from "./pages/AddEmployee";
 import UploadCSV from "./components/UploadCSV";
 import EditEmployee from "./pages/EditEmployee";
+import EmployeeDetail from "./pages/EmployeeDetail";
 
 function App() {
     const auth = useAuth()
@@ -36,6 +37,7 @@ function App() {
                             <Route path="/employees/add" element={<RequireAuth><AddEmployee/></RequireAuth>}/>
                             <Route path="/employees/import-csv" element={<RequireAuth><UploadCSV/></RequireAuth>}/>
                             <Route path="/employees/:id/edit" element={<RequireAuth><EditEmployee/></RequireAuth>}/>
+                            <Route path="/employees/:id" element={<RequireAuth><EmployeeDetail/></RequireAuth>}/>
                             <Route path="*" element={<RequireAuth><Home/></RequireAuth>}/>
                         </Routes>
                     </Router>
